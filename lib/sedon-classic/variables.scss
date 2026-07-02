@@ -1,0 +1,33 @@
+@use 'sass:color';
+
+$sedonPrefix: 'sedon-';
+
+$sedon-colors: (
+    color-1: #e46060, // red
+    color-2: #ec8a25, // orange
+    color-3: #FFC66D, // yellow
+    color-4: #639e47, // green
+    color-5: #4dd3a0, // cyan
+    color-6: #3979b1, // blue
+    color-7: #4151c3, // indigo
+    color-8: #8d58a8, // purple
+    color-9: #d35ca0, // pink
+    tone-1: #dadada, // white
+    tone-2: #808080, // gray
+    tone-3: #202020, // black
+);
+
+$lighten-bright: 15%;
+$lighten-dark: -15%;
+
+$input-height: 24px;
+
+$font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+
+.#{$sedonPrefix}container, .#{$sedonPrefix}menu {
+  @each $name, $color in $sedon-colors {
+    --sedon-#{$name}: #{$color};
+    --sedon-#{$name}-bright: #{color.adjust($color, $lightness: $lighten-bright)};
+    --sedon-#{$name}-dark: #{color.adjust($color, $lightness: $lighten-dark)};
+  }
+}

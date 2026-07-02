@@ -1,0 +1,60 @@
+@use 'sass:math';
+@use 'sass:meta';
+@use 'sass:string';
+@use 'variables' as v;
+
+@function encodecolor($string) {
+  @if meta.type-of($string) == 'color' {
+    $hex: string.slice(ie-hex-str($string), 4);
+    $string: string.unquote('#{$hex}');
+  }
+  $string: '%23' + $string;
+  @return $string;
+}
+
+.#{v.$sedonPrefix}canvas {
+  $stroke-color0: #444;
+  $stroke-color1: #363636;
+  $stroke-color2: #323232;
+  $stroke-size1: 1px;
+  $stroke-size2: 1px;
+  $stroke-spacing-no-unit: 20;
+  $stroke-spacing: $stroke-spacing-no-unit * 1px;
+
+  // todo: make this work with scaling
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{10 * $stroke-spacing-no-unit} #{10 * $stroke-spacing-no-unit}"><circle cx="1.4" cy="1.4" r="1.4" fill="#{encodecolor($stroke-color0)}"/></svg>'),
+  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{10 * $stroke-spacing-no-unit} #{$stroke-spacing-no-unit}"><circle cx="1" cy="1" r="1" fill="#{encodecolor($stroke-color1)}"/></svg>'),
+  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 #{$stroke-spacing-no-unit} #{10 * $stroke-spacing-no-unit}"><circle cx="1" cy="1" r="1" fill="#{encodecolor($stroke-color1)}"/></svg>'),
+  radial-gradient(#{$stroke-color2} #{$stroke-size2}, transparent 0);
+
+  background-position: $stroke-spacing * .5 - 1.4px $stroke-spacing * .5 - 1.4px,
+  $stroke-spacing * .5 - 1px $stroke-spacing * .5 - 1px,
+  $stroke-spacing * .5 - 1px $stroke-spacing * .5 - 1px,
+  0 0;
+
+  background-size: #{10 * $stroke-spacing} #{10 * $stroke-spacing},
+  #{10 * $stroke-spacing} #{$stroke-spacing},
+  #{$stroke-spacing} #{10 * $stroke-spacing},
+  #{$stroke-spacing} #{$stroke-spacing};
+
+  .#{v.$sedonPrefix}connections {
+    .#{v.$sedonPrefix}node-connector {
+      stroke: #eee;
+      stroke-width: 2px;
+    }
+
+    ##{v.$sedonPrefix}arrow-head {
+      fill: none;
+      stroke: #eee;
+      stroke-width: 2px;
+      stroke-linecap: round;
+      --content: 'M 16 6 L 24 12 L 16 18';
+    }
+  }
+
+  .#{v.$sedonPrefix}connection-delete-button {
+    background-color: var(--sedon-tone-3);
+    border: 1px solid var(--sedon-tone-2);
+    border-radius: 4px;
+  }
+}

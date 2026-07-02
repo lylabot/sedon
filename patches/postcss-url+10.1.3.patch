@@ -1,0 +1,28 @@
+diff --git a/node_modules/postcss-url/src/lib/decl-processor.js b/node_modules/postcss-url/src/lib/decl-processor.js
+index 6c40b32..2740c21 100644
+--- a/node_modules/postcss-url/src/lib/decl-processor.js
++++ b/node_modules/postcss-url/src/lib/decl-processor.js
+@@ -19,7 +19,9 @@ const prepareAsset = paths.prepareAsset;
+  * @type {UrlRegExp[]}
+  */
+ const URL_PATTERNS = [
+-    /(url\(\s*['"]?)([^"')]+)(["']?\s*\))/g,
++    /(url\(\s*["])((?:(?:[^(")]+)(?:\([^")]+\))?)+)(["]\s*\))/g,
++    /(url\(\s*['])((?:(?:[^(')]+)(?:\([^')]+\))?)+)([']\s*\))/g,
++    /(url\(\s*)((?:(?:[^"'()]+)(?:\([^)]+\))?)+)(\s*\))/g,
+     /(AlphaImageLoader\(\s*src=['"]?)([^"')]+)(["'])/g
+ ];
+ 
+diff --git a/node_modules/postcss-url/src/lib/get-file.js b/node_modules/postcss-url/src/lib/get-file.js
+index 8da6c34..0da99b7 100644
+--- a/node_modules/postcss-url/src/lib/get-file.js
++++ b/node_modules/postcss-url/src/lib/get-file.js
+@@ -63,7 +63,7 @@ const getFile = (asset, options, dir, warn) => {
+             .then((contents) => {
+                 return {
+                     path,
+-                    contents,
++                    contents: 'transformContents' in options ? options.transformContents(contents, asset) : contents,
+                     mimeType: mime.getType(path)
+                 };
+             })

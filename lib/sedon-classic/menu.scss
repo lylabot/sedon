@@ -1,0 +1,141 @@
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:map';
+@use 'variables' as v;
+
+.#{v.$sedonPrefix}menu {
+  display: inline-flex;
+  width: 28ch;
+  font-family: v.$font-family;
+  font-size: 13px;
+  background: none;
+  box-sizing: border-box;
+
+  margin: -5px 0 0 -2px;
+  $container-padding: 20px;
+  padding: $container-padding;
+
+  transition: margin .05s ease-in, opacity .1s ease-in, z-index 0s .1s linear;
+
+  &.#{v.$sedonPrefix}visible {
+    transition: margin .07s ease-out, opacity .07s ease-out, z-index 0s 0s linear;
+  }
+
+  ul {
+    position: relative;
+    $list-border-width: 1px;
+    $list-vertical-padding: 6px;
+    width: 100%;
+    margin: 0;
+    padding: $list-vertical-padding 0;
+    box-sizing: border-box;
+
+    list-style: none;
+    color: #ddd;
+    border-radius: 5px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -$list-border-width;
+      left: -$list-border-width;
+      height: calc(100%);
+      width: calc(100%);
+      box-sizing: content-box;
+
+      backdrop-filter: blur(10px);
+      border-radius: inherit;
+      background: rgba(17, 17, 17, .8);
+      border: $list-border-width solid #000;
+
+      z-index: -1;
+    }
+
+    li {
+      position: relative;
+      left: -$list-border-width;
+      width: calc(100% + #{$list-border-width} * 2);
+      padding: 4px 10px;
+      background-clip: padding-box;
+      border: solid transparent;
+      border-width: 0 $list-border-width;
+      box-sizing: border-box;
+
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: .3rem;
+
+      cursor: default;
+
+      &:after {
+        content: '';
+        display: block;
+        pointer-events: none;
+
+        position: absolute;
+        right: 6px;
+
+        width: 14px;
+        height: 14px;
+      }
+
+      &:has(ul):after {
+        visibility: visible;
+        background: url('../../node_modules/@tabler/icons/icons/outline/chevron-right.svg##{color.change(map.get(v.$sedon-colors, tone-1), $alpha: .5)}') center / contain no-repeat;
+      }
+
+      &.#{v.$sedonPrefix}hovered {
+        background-color: var(--sedon-color-6);
+      }
+
+      &:has(li.#{v.$sedonPrefix}hovered) {
+        background-color: var(--sedon-color-6-dark);
+      }
+
+      &.#{v.$sedonPrefix}sedon-separator {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        color: var(--sedon-tone-2);
+        font-size: 10px;
+
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+
+        hr {
+          width: 100%;
+        }
+      }
+
+      $icon-size: 1rem;
+
+      svg {
+        height: $icon-size;
+        width: $icon-size;
+      }
+
+      &:has(input):has(svg) {
+        display: grid;
+        grid-template-columns: $icon-size 1fr;
+      }
+
+      input {
+        width: 100%;
+        height: 1.5em;
+        padding: 0 .5em;
+        background: transparent;
+        border: 1px solid var(--sedon-tone-2-dark);
+        border-radius: 4px;
+        outline: none;
+      }
+
+      ul {
+        position: absolute;
+        left: calc(100% + #{$list-border-width} * 2);
+        top: -1 * ($list-vertical-padding);
+        z-index: 1;
+      }
+    }
+  }
+}

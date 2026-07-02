@@ -1,0 +1,187 @@
+$sedonPrefix: 'sedon-';
+$size: 10000px;
+
+.#{$sedonPrefix}container {
+  position: relative;
+  overflow: hidden;
+
+  .#{$sedonPrefix}interaction-hints {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    height: 2rem;
+
+    display: flex;
+
+    .#{$sedonPrefix}hint {
+      display: flex;
+    }
+  }
+}
+
+.#{$sedonPrefix}canvas {
+  --size: #{$size};
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: var(--size);
+  width: var(--size);
+
+  transform-origin: top left;
+
+  .#{$sedonPrefix}node-connector {
+    stroke: currentColor;
+  }
+
+  .#{$sedonPrefix}connection-delete-button {
+    position: absolute;
+    $button-size: 1rem;
+    height: $button-size;
+    width: $button-size;
+    top: $button-size * -.5;
+    left: $button-size * -.5;
+  }
+}
+
+.#{$sedonPrefix}connections {
+  position: absolute;
+  height: $size;
+  width: $size;
+  pointer-events: none;
+}
+
+.#{$sedonPrefix}node {
+  position: absolute;
+  min-width: 150px;
+  background: #fff;
+
+  cursor: default;
+
+  border: 1px currentColor solid;
+
+  .#{$sedonPrefix}name {
+    display: flex;
+    justify-content: space-between;
+
+    .#{$sedonPrefix}label {
+      margin: 0;
+    }
+
+    .#{$sedonPrefix}toolbar {
+      button {
+        position: relative;
+
+        .#{$sedonPrefix}tooltip {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%, calc(-100% - .2rem));
+          text-wrap: nowrap;
+          opacity: 0;
+        }
+
+        &:hover .#{$sedonPrefix}tooltip {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0 10px;
+
+    li {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+
+      .#{$sedonPrefix}endpoint {
+        position: absolute;
+        top: 0;
+        display: block;
+
+        width: 8px;
+        height: 8px;
+        background: currentColor;
+      }
+
+      &.#{$sedonPrefix}input {
+        text-align: left;
+
+        .#{$sedonPrefix}endpoint {
+          left: -10px;
+        }
+      }
+
+      &.#{$sedonPrefix}output {
+        text-align: right;
+
+        .#{$sedonPrefix}endpoint {
+          right: -10px
+        }
+      }
+    }
+  }
+}
+
+.#{$sedonPrefix}menu {
+  position: fixed;
+  background: #fff;
+  z-index: -10;
+  opacity: 0;
+  pointer-events: none;
+
+  &.#{$sedonPrefix}visible {
+    opacity: 1;
+    z-index: 1;
+    pointer-events: initial;
+  }
+
+  // show sub menu mechanic
+  li {
+    > ul {
+      display: none;
+    }
+
+    &.#{$sedonPrefix}hovered > ul, & > ul:has(.#{$sedonPrefix}hovered) {
+      display: block;
+    }
+
+    &.#{$sedonPrefix}sedon-separator {
+      pointer-events: none;
+    }
+  }
+}
+
+.#{$sedonPrefix}clear {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+}
+
+.#{$sedonPrefix}flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.#{$sedonPrefix}input-element .#{$sedonPrefix}overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}

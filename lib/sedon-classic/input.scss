@@ -1,0 +1,113 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'variables' as v;
+
+$background: #2a2a2a;
+$progress: #e3e3e3;
+$border-radius: v.$input-height * .3;
+
+.#{v.$sedonPrefix}input-element {
+  height: v.$input-height;
+  position: relative;
+  overflow: hidden;
+}
+
+.#{v.$sedonPrefix}input-element, .#{v.$sedonPrefix}button {
+  background-color: $background;
+  border-radius: $border-radius;
+}
+
+.#{v.$sedonPrefix}button {
+  padding: 0 .6rem;
+  cursor: pointer;
+
+  &.#{v.$sedonPrefix}muted {
+    &:hover {
+      color: #fff;
+    }
+
+    transition: color .15s ease;
+  }
+}
+
+.#{v.$sedonPrefix}muted {
+  color: #888;
+}
+
+/* NUMBER */
+.#{v.$sedonPrefix}number {
+  .#{v.$sedonPrefix}field {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.#{v.$sedonPrefix}range-progress {
+  &::-webkit-progress-bar {
+    appearance: none;
+    background: transparent;
+  }
+
+  &::-webkit-progress-value {
+    background: $progress;
+  }
+
+  &::-moz-progress-bar {
+    background: $progress;
+  }
+
+  appearance: none;
+
+  mix-blend-mode: difference;
+
+  background: transparent;
+  border: none;
+}
+
+/* BOOLEAN */
+.#{v.$sedonPrefix}boolean {
+  .#{v.$sedonPrefix}flex, &.#{v.$sedonPrefix}flex {
+    justify-content: start;
+    gap: .5rem;
+  }
+
+  .#{v.$sedonPrefix}field {
+    appearance: none;
+    margin: 0;
+    $size: .8;
+    height: v.$input-height * $size;
+    width: v.$input-height * $size;
+    background: $background;
+    border-radius: $border-radius;
+
+    &:checked {
+      background: $progress;
+    }
+  }
+}
+
+/* STRING */
+.#{v.$sedonPrefix}string {
+  .#{v.$sedonPrefix}field {
+    appearance: none;
+    width: 100%;
+    padding: 0 .4rem;
+    box-sizing: border-box;
+    margin: 0;
+    background: $background;
+  }
+}
+
+/* ENUM */
+.#{v.$sedonPrefix}enum {
+  .#{v.$sedonPrefix}field {
+    position: relative;
+    appearance: none;
+    width: 100%;
+    padding: 0 1.2rem 0 .4rem;
+    box-sizing: border-box;
+    margin: 0;
+    background: $background url('../../node_modules/@tabler/icons/icons/outline/chevron-down.svg##{color.change(map.get(v.$sedon-colors, tone-1), $alpha: .5)}') calc(100% - .2rem) center / 1.2rem no-repeat;
+    border-radius: $border-radius;
+  }
+}

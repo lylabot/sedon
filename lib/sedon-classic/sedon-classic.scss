@@ -1,0 +1,51 @@
+@use 'sass:math';
+@use 'variables' as v;
+@use 'canvas';
+@use 'node';
+@use 'menu';
+@use 'input';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.#{v.$sedonPrefix}container {
+  font: {
+    family: v.$font-family;
+    size: 13px;
+    weight: 400;
+  }
+  letter-spacing: .02em;
+  background: #222;
+
+  .#{v.$sedonPrefix}interaction-hints {
+    padding: 0 1rem;
+    gap: 1.5em;
+    align-items: center;
+
+    font-size: .7rem;
+    z-index: 1;
+
+    opacity: .3;
+
+    .#{v.$sedonPrefix}hint {
+      display: flex;
+      align-items: center;
+      gap: .4em;
+
+      .#{v.$sedonPrefix}subgroup {
+        display: flex;
+        align-items: center;
+        gap: .05em;
+      }
+
+      svg {
+        $size: 1.2em;
+        //width: $size;
+        height: $size;
+      }
+
+      span {
+        margin-left: .1em;
+      }
+    }
+  }
+}
